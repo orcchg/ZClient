@@ -1,4 +1,4 @@
-package com.orcchg.zufuturoclient;
+package com.orcchg.zufuturoclient.ui.customer;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.orcchg.zufuturoclient.R;
 
 public class CustomerListActivity extends AppCompatActivity {
 
