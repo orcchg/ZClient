@@ -1,4 +1,4 @@
-package com.orcchg.zufuturoclient;
+package com.orcchg.zclient;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.orcchg.zufuturoclient;
+package com.orcchg.zclient;
 
 import org.junit.Test;
 

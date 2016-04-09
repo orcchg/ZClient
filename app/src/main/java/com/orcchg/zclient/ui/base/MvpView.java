@@ -1,4 +1,4 @@
-package com.orcchg.zufuturoclient.ui.base;
+package com.orcchg.zclient.ui.base;
 
 /**
  * Base interface that any class that wants to act as a View in the MVP (Model View Presenter)

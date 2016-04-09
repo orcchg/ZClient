@@ -1,4 +1,4 @@
-package com.orcchg.zufuturoclient.ui.base;
+package com.orcchg.zclient.ui.base;
 
 import android.app.Activity;
 import android.os.Bundle;

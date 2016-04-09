@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">ZufuturoClient</string>
+    <string name="app_name">ZClient</string>
     <string name="action_settings">Settings</string>
+
+    <string name="empty_data">Data is empty</string>
+    <string name="error_text">Data error</string>
+    <string name="error_btn_label">Retry</string>
 </resources>

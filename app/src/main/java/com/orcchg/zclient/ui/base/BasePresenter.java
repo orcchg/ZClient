@@ -1,4 +1,4 @@
-package com.orcchg.zufuturoclient.ui.base;
+package com.orcchg.zclient.ui.base;
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for
