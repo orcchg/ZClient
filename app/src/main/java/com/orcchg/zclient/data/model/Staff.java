@@ -2,46 +2,49 @@ package com.orcchg.zclient.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Customer {
+public class Staff {
 
-    @SerializedName("customer_id") private int mCustomerId;
+    @SerializedName("staff_id") private int mStaffId;
     @SerializedName("store_id") private int mStoreId;
     @SerializedName("first_name") private String mFirstName;
     @SerializedName("last_name") private String mLastName;
     @SerializedName("email") private String mEmail;
     @SerializedName("address_id") private int mAddressId;
-    @SerializedName("activebool") private boolean mIsActive;
-    @SerializedName("create_date") private String mCreateDate;
-    @SerializedName("last_update") private String mLastUpdate;
     @SerializedName("active") private int mActive;
+    @SerializedName("username") private String mUserName;
+    @SerializedName("password") private String mPassword;
+    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("picture") private String mPicture;
 
-    public Customer(Builder builder) {
-        mCustomerId = builder.mCustomerId;
+    public Staff(Builder builder) {
+        mStaffId = builder.mStaffId;
         mStoreId = builder.mStoreId;
         mFirstName = builder.mFirstName;
         mLastName = builder.mLastName;
         mEmail = builder.mEmail;
         mAddressId = builder.mAddressId;
-        mIsActive = builder.mIsActive;
-        mCreateDate = builder.mCreateDate;
-        mLastUpdate = builder.mLastUpdate;
         mActive = builder.mActive;
+        mUserName = builder.mUserName;
+        mPassword = builder.mPassword;
+        mLastUpdate = builder.mLastUpdate;
+        mPicture = builder.mPicture;
     }
 
     public static class Builder {
-        private final int mCustomerId;
+        private final int mStaffId;
         private int mStoreId;
         private String mFirstName;
         private String mLastName;
         private String mEmail;
         private int mAddressId;
-        private boolean mIsActive;
-        private String mCreateDate;
-        private String mLastUpdate;
         private int mActive;
+        private String mUserName;
+        private String mPassword;
+        private String mLastUpdate;
+        private String mPicture;
 
-        public Builder(int customerId) {
-            mCustomerId = customerId;
+        public Builder(int staffId) {
+            mStaffId = staffId;
         }
 
         public Builder setStoreId(int storeId) {
@@ -69,13 +72,18 @@ public class Customer {
             return this;
         }
 
-        public Builder setIsActive(boolean isActive) {
-            mIsActive = isActive;
+        public Builder setActive(int active) {
+            mActive = active;
             return this;
         }
 
-        public Builder setCreateDate(String createDate) {
-            mCreateDate = createDate;
+        public Builder setUserName(String userName) {
+            mUserName = userName;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            mPassword = password;
             return this;
         }
 
@@ -84,23 +92,20 @@ public class Customer {
             return this;
         }
 
-        public Builder setActive(int active) {
-            mActive = active;
+        public Builder setPicture(String picture) {
+            mPicture = picture;
             return this;
         }
 
-        public Customer build() {
-            return new Customer(this);
+        public Staff build() {
+            return new Staff(this);
         }
     }
-
+    
     /* Getters */
     // --------------------------------------------------------------------------------------------
-    public int getCustomerId() {
-        return mCustomerId;
-    }
-    public int getStoreId() {
-        return mStoreId;
+    public int getStaffId() {
+        return mStaffId;
     }
     public String getFirstName() {
         return mFirstName;
@@ -108,22 +113,28 @@ public class Customer {
     public String getLastName() {
         return mLastName;
     }
-    public String getEmail() {
-        return mEmail;
-    }
     public int getAddressId() {
         return mAddressId;
     }
-    public boolean isIsActive() {
-        return mIsActive;
+    public String getEmail() {
+        return mEmail;
     }
-    public String getCreateDate() {
-        return mCreateDate;
+    public int getStoreId() {
+        return mStoreId;
+    }
+    public int getActive() {
+        return mActive;
+    }
+    public String getUserName() {
+        return mUserName;
+    }
+    public String getPassword() {
+        return mPassword;
     }
     public String getLastUpdate() {
         return mLastUpdate;
     }
-    public int getActive() {
-        return mActive;
+    public String getPicture() {
+        return mPicture;
     }
 }

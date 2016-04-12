@@ -1,13 +1,12 @@
 package com.orcchg.zclient.ui.customer;
 
 import com.orcchg.zclient.data.model.Customer;
-import com.orcchg.zclient.data.model.CustomerMapperVO;
+import com.orcchg.zclient.data.mapper.CustomerMapperVO;
 import com.orcchg.zclient.mock.MockProvider;
 import com.orcchg.zclient.ui.base.BasePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 import rx.Observable;
 import rx.Observer;
