@@ -1,10 +1,8 @@
 package com.orcchg.zclient.ui.customer;
 
-import com.orcchg.zclient.ui.base.MvpView;
+import com.orcchg.zclient.ui.base.MvpLceView;
 
-import java.util.List;
-
-public interface CustomerListMvpView extends MvpView {
+public interface CustomerListMvpView extends MvpLceView {
 
     void showCustomers(boolean isEmpty);
 }

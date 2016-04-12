@@ -2,6 +2,7 @@ package com.orcchg.zclient.ui.customer;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -48,6 +49,7 @@ public class CustomerListActivity extends BaseLceActivity<CustomerListPresenter>
         setContentView(R.layout.activity_customer_list);
         ButterKnife.bind(this);
 
+        mCustomersList.setLayoutManager(new LinearLayoutManager(this));
         mCustomersList.setAdapter(mPresenter.getAdapter());
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override

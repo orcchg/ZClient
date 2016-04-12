@@ -7,7 +7,7 @@ import com.orcchg.zclient.R;
 
 import butterknife.Bind;
 
-public abstract class BaseLceActivity<P extends Presenter> extends BaseActivity<P> {
+public abstract class BaseLceActivity<P extends Presenter> extends BaseActivity<P> implements MvpLceView {
 
     @Bind(R.id.loading_view) protected View mLoadingView;
     @Bind(R.id.content_view) protected View mContentView;

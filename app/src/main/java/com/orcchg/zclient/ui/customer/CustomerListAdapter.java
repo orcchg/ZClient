@@ -12,6 +12,7 @@ import com.orcchg.zclient.R;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.ViewHolder> {
 
@@ -27,6 +28,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
         public ViewHolder(View view) {
             super(view);
+            ButterKnife.bind(this, view);
         }
     }
 
