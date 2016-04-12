@@ -99,39 +99,30 @@ public class Customer {
     public int getCustomerId() {
         return mCustomerId;
     }
-
     public int getStoreId() {
         return mStoreId;
     }
-
     public String getFirstName() {
         return mFirstName;
     }
-
     public String getLastName() {
         return mLastName;
     }
-
     public String getEmail() {
         return mEmail;
     }
-
     public int getAddressId() {
         return mAddressId;
     }
-
     public boolean isIsActive() {
         return mIsActive;
     }
-
     public String getCreateDate() {
         return mCreateDate;
     }
-
     public String getLastUpdate() {
         return mLastUpdate;
     }
-
     public int getActive() {
         return mActive;
     }

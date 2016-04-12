@@ -9,7 +9,6 @@ public class MockProvider {
 
     public static List<Customer> createCustomers() {
         List<Customer> customers = new ArrayList<>();
-
         customers.add(new Customer.Builder(1000).setFirstName("Maxim").setLastName("Alov").setEmail("orcchg@yandex.ru").build());
         customers.add(new Customer.Builder(1001).setFirstName("Oleg").setLastName("Muratov").setEmail("o.muratov@samsung.com").build());
         customers.add(new Customer.Builder(1002).setFirstName("Artem").setLastName("Shamsuarov").setEmail("a.shamsuarov@samsung.com").build());
@@ -26,7 +25,6 @@ public class MockProvider {
         customers.add(new Customer.Builder(1013).setFirstName("Jaehyun").setLastName("Kim").setEmail("jhyun.kim@samsung.com").build());
         customers.add(new Customer.Builder(1014).setFirstName("Joshua").setLastName("Cho").setEmail("cho@samsung.com").build());
         customers.add(new Customer.Builder(1015).setFirstName("Jihwan").setLastName("Choi").setEmail("jihwan.choi@samsung.com").build());
-
         return customers;
     }
 }

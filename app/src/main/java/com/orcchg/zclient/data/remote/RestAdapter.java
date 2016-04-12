@@ -2,7 +2,9 @@ package com.orcchg.zclient.data.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.orcchg.zclient.data.model.Address;
 import com.orcchg.zclient.data.model.Customer;
+import com.orcchg.zclient.data.model.Response;
 
 import java.util.List;
 
@@ -11,7 +13,10 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -19,7 +24,7 @@ public interface RestAdapter {
 
     String ENDPOINT = "http://194.190.63.180/";
 
-    public static class Creator {
+    class Creator {
         public static RestAdapter create() {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -38,5 +43,11 @@ public interface RestAdapter {
     }
 
     @GET("/customers/")
-    Observable<List<Customer>> getCustomers(@Query("path") int limit, @Query("offset") int offset);
+    Observable<List<Customer>> getCustomers(@Query("limit") int limit, @Query("offset") int offset);
+
+    @POST("/customer/")
+    Observable<Response> newCustomer(@Body Customer customer);
+
+    @GET("/address/{addressId}")
+    Observable<Address> getAddress(@Path("addressId") int addressId);
 }
