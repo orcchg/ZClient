@@ -13,8 +13,8 @@ public class Staff {
     @SerializedName("active") private int mActive;
     @SerializedName("username") private String mUserName;
     @SerializedName("password") private String mPassword;
-    @SerializedName("last_update") private String mLastUpdate;
-    @SerializedName("picture") private String mPicture;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
+    @SerializedName("picture") private String mPicture;  // TODO: type 'bytea'
 
     public Staff(Builder builder) {
         mStaffId = builder.mStaffId;

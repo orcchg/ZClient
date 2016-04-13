@@ -7,7 +7,7 @@ public class City {
     @SerializedName("city_id") private int mCityId;
     @SerializedName("city") private String mCity;
     @SerializedName("country_id") private int mCountryId;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
 
     public City(Builder builder) {
         mCityId = builder.mCityId;

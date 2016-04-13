@@ -11,7 +11,7 @@ public class Address {
     @SerializedName("city_id") private int mCityId;
     @SerializedName("postal_code") private String mPostalCode;
     @SerializedName("phone") private String mPhone;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
 
     public Address(Builder builder) {
         mAddressId = builder.mAddressId;

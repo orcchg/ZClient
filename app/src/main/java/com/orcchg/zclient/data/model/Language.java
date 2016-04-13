@@ -6,7 +6,7 @@ public class Language {
 
     @SerializedName("language_id") private int mLanguageId;
     @SerializedName("name") private String mName;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
 
     public Language(Builder builder) {
         mLanguageId = builder.mLanguageId;

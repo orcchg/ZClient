@@ -7,7 +7,7 @@ public class Actor {
     @SerializedName("actor_id") private int mActorId;
     @SerializedName("first_name") private String mFirstName;
     @SerializedName("last_name") private String mLastName;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
     
     public Actor(Builder builder) {
         mActorId = builder.mActorId;

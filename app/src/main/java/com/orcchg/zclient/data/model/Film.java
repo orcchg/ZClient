@@ -7,16 +7,16 @@ public class Film {
     @SerializedName("film_id") private int mFilmId;
     @SerializedName("title") private String mTitle;
     @SerializedName("description") private String mDescription;
-    @SerializedName("release_year") private int mReleaseYear;
+    @SerializedName("release_year") private int mReleaseYear;  // TODO: type 'public mpaa'
     @SerializedName("language_id") private int mLanguageId;
     @SerializedName("rental_duration") private int mRentalDuration;
-    @SerializedName("rental_rate") private String mRentalRate;
+    @SerializedName("rental_rate") private String mRentalRate;  // TODO: type 'numeric'
     @SerializedName("length") private int mLength;
     @SerializedName("replacement_cost") private String mReplacementCost;
-    @SerializedName("rating") private int mRating;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("rating") private int mRating;  // TODO: type 'public mpaa'
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
     @SerializedName("special_features") private String mSpecialFeatures;
-    @SerializedName("fulltext") private String mFullText;
+    @SerializedName("fulltext") private String mFullText;  // TODO: type 'tsvector'
     
     public Film(Builder builder) {
         mFilmId = builder.mFilmId;

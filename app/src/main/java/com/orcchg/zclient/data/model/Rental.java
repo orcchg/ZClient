@@ -10,7 +10,7 @@ public class Rental {
     @SerializedName("customer_id") private int mCustomerId;
     @SerializedName("return_date") private String mReturnDate;
     @SerializedName("staff_id") private int mStaffId;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
     
     public Rental(Builder builder) {
         mRentalId = builder.mRentalId;

@@ -6,7 +6,7 @@ public class FilmCategory {
 
     @SerializedName("film_id") private int mFilmId;
     @SerializedName("category_id") private int mCategoryId;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
 
     public FilmCategory(Builder builder) {
         mFilmId = builder.mFilmId;

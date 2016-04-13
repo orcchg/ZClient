@@ -6,7 +6,7 @@ public class Country {
 
     @SerializedName("country_id") private int mCountryId;
     @SerializedName("country") private String mCountry;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
 
     public Country(Builder builder) {
         mCountryId = builder.mCountryId;

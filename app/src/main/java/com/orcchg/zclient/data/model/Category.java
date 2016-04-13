@@ -6,7 +6,7 @@ public class Category {
 
     @SerializedName("category_id") private int mCategoryId;
     @SerializedName("name") private String mName;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
 
     public Category(Builder builder) {
         mCategoryId = builder.mCategoryId;

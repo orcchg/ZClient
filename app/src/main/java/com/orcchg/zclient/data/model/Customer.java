@@ -11,8 +11,8 @@ public class Customer {
     @SerializedName("email") private String mEmail;
     @SerializedName("address_id") private int mAddressId;
     @SerializedName("activebool") private boolean mIsActive;
-    @SerializedName("create_date") private String mCreateDate;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("create_date") private String mCreateDate;  // TODO: type 'date'
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
     @SerializedName("active") private int mActive;
 
     public Customer(Builder builder) {

@@ -8,8 +8,9 @@ public class Payment {
     @SerializedName("customer_id") private int mCustomerId;
     @SerializedName("staff_id") private int mStaffId;
     @SerializedName("rental_id") private int mRentalId;
-    @SerializedName("amount") private String mAmount;
+    @SerializedName("amount") private String mAmount;  // TODO: type 'numeric'
     @SerializedName("payment_date") private String mPaymentDate;
+    // TODO: check for last_update
     
     public Payment(Builder builder) {
         mPaymentId = builder.mPaymentId;

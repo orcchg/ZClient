@@ -6,7 +6,7 @@ public class FilmActor {
 
     @SerializedName("actor_id") private int mActorId;
     @SerializedName("film_id") private int mFilmId;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
 
     public FilmActor(Builder builder) {
         mActorId = builder.mActorId;

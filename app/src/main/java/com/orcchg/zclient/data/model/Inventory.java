@@ -7,7 +7,7 @@ public class Inventory {
     @SerializedName("inventory_id") private int mInventoryId;
     @SerializedName("film_id") private int mFilmId;
     @SerializedName("store_id") private int mStoreId;
-    @SerializedName("last_update") private String mLastUpdate;
+    @SerializedName("last_update") private String mLastUpdate;  // TODO: type 'timestamp'
     
     public Inventory(Builder builder) {
         mInventoryId = builder.mInventoryId;
