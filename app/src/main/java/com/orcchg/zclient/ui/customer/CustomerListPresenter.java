@@ -1,5 +1,9 @@
 package com.orcchg.zclient.ui.customer;
 
+import android.app.Activity;
+
+import com.orcchg.zclient.ZClientApplication;
+import com.orcchg.zclient.data.DataManager;
 import com.orcchg.zclient.data.model.Customer;
 import com.orcchg.zclient.data.mapper.CustomerMapperVO;
 import com.orcchg.zclient.mock.MockProvider;
@@ -10,10 +14,13 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
 import rx.functions.Func1;
 import timber.log.Timber;
 
 public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
+
+    private DataManager mDataManager;
 
     private final List<CustomerVO> mCustomers;
     private final CustomerListAdapter mCustomerAdapter;
@@ -23,6 +30,12 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
         mCustomerAdapter = new CustomerListAdapter(mCustomers);
     }
 
+    @Override
+    public void attachView(CustomerListMvpView mvpView) {
+        super.attachView(mvpView);
+        mDataManager = ((ZClientApplication) ((Activity) mvpView).getApplication()).getDataManager();
+    }
+
     CustomerListAdapter getAdapter() {
         return mCustomerAdapter;
     }
@@ -30,14 +43,34 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
     void onFabClick() {
         checkViewAttached();
         getMvpView().showLoading();
+        final CustomerMapperVO mapper = new CustomerMapperVO();
 
-        Observable.from(MockProvider.createCustomers()).flatMap(new Func1<Customer, Observable<CustomerVO>>() {
-            @Override
-            public Observable<CustomerVO> call(Customer customer) {
-                CustomerVO viewObject = new CustomerMapperVO().map(customer);
-                return Observable.just(viewObject);
-            }
-        }).subscribe(new Observer<CustomerVO>() {
+//        Observable.from(MockProvider.createCustomers()).flatMap(new Func1<Customer, Observable<CustomerVO>>() {
+//            @Override
+//            public Observable<CustomerVO> call(Customer customer) {
+//                CustomerVO viewObject = mapper.map(customer);
+//                return Observable.just(viewObject);
+//            }
+//        }).subscribe(createObserver());
+
+        mDataManager.getCustomers(20, 5)
+                .flatMap(new Func1<List<Customer>, Observable<Customer>>() {
+                    @Override
+                    public Observable<Customer> call(List<Customer> customers) {
+                        return Observable.from(customers);
+                    }
+                })
+                .map(new Func1<Customer, CustomerVO>() {
+                    @Override
+                    public CustomerVO call(Customer customer) {
+                        CustomerVO viewObject = mapper.map(customer);
+                        return viewObject;
+                    }
+                }).subscribe(createObserver());
+    }
+
+    private Observer<CustomerVO> createObserver() {
+        return new Observer<CustomerVO>() {
             @Override
             public void onCompleted() {
                 Timber.d("Complete");
@@ -56,6 +89,6 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
                 Timber.d("Next: " + customerVO.getFirstName());
                 mCustomers.add(customerVO);
             }
-        });
+        };
     }
 }

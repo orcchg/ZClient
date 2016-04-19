@@ -22,7 +22,7 @@ import rx.Observable;
 
 public interface RestAdapter {
 
-    String ENDPOINT = "http://194.190.63.180/";
+    String ENDPOINT = "http://194.190.63.108:9000/";
 
     class Creator {
         public static RestAdapter create() {
@@ -48,6 +48,6 @@ public interface RestAdapter {
     @POST("/customer/")
     Observable<Response> newCustomer(@Body Customer customer);
 
-    @GET("/address/{addressId}")
-    Observable<Address> getAddress(@Path("addressId") int addressId);
+    @GET("/address/")
+    Observable<Address> getAddress(@Query("address_id") int addressId);
 }
