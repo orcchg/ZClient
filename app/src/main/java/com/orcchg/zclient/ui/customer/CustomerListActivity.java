@@ -57,6 +57,8 @@ public class CustomerListActivity extends BaseLceActivity<CustomerListPresenter>
                 mPresenter.onFabClick();
             }
         });
+
+        showContent();
     }
 
     private void initToolbar() {
