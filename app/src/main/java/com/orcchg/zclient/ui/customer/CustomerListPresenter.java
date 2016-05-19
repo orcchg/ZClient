@@ -1,6 +1,7 @@
 package com.orcchg.zclient.ui.customer;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 
 import com.orcchg.zclient.ZClientApplication;
 import com.orcchg.zclient.data.DataManager;
@@ -9,6 +10,7 @@ import com.orcchg.zclient.data.mapper.CustomerMapperVO;
 import com.orcchg.zclient.mock.MockProvider;
 import com.orcchg.zclient.ui.base.BasePresenter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +70,8 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
                         return viewObject;
                     }
                 }).subscribe(createObserver());
+
+        new DirectConnectionTask().execute();
     }
 
     private Observer<CustomerVO> createObserver() {
@@ -91,5 +95,18 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
                 mCustomers.add(customerVO);
             }
         };
+    }
+
+    private class DirectConnectionTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                mDataManager.getDirectClient().connect();
+                mDataManager.getDirectClient().close();
+            } catch (IOException e) {
+                Timber.e(e.getMessage());
+            }
+            return null;
+        }
     }
 }

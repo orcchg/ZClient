@@ -24,7 +24,7 @@ import rx.Observable;
 
 public interface RestAdapter {
 
-    String ENDPOINT = "http://194.190.63.108:9000/";
+    String ENDPOINT = "http://" + DirectClient.IP_ADDRESS + ":" + DirectClient.PORT + "/";
 
     class Creator {
         public static RestAdapter create() {
