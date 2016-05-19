@@ -54,6 +54,7 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
 //        }).subscribe(createObserver());
 
         mDataManager.getCustomers(20, 5)
+//        MockProvider.createCustomersObservable()
                 .flatMap(new Func1<List<Customer>, Observable<Customer>>() {
                     @Override
                     public Observable<Customer> call(List<Customer> customers) {

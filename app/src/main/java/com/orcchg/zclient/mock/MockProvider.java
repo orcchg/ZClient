@@ -5,6 +5,8 @@ import com.orcchg.zclient.data.model.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+
 public class MockProvider {
 
     public static List<Customer> createCustomers() {
@@ -26,5 +28,9 @@ public class MockProvider {
         customers.add(new Customer.Builder(1014).setFirstName("Joshua").setLastName("Cho").setEmail("cho@samsung.com").build());
         customers.add(new Customer.Builder(1015).setFirstName("Jihwan").setLastName("Choi").setEmail("jihwan.choi@samsung.com").build());
         return customers;
+    }
+
+    public static Observable<List<Customer>> createCustomersObservable() {
+        return Observable.just(createCustomers());
     }
 }
