@@ -5,9 +5,8 @@ import android.os.AsyncTask;
 
 import com.orcchg.zclient.ZClientApplication;
 import com.orcchg.zclient.data.DataManager;
-import com.orcchg.zclient.data.model.Customer;
 import com.orcchg.zclient.data.mapper.CustomerMapperVO;
-import com.orcchg.zclient.mock.MockProvider;
+import com.orcchg.zclient.data.model.Customer;
 import com.orcchg.zclient.ui.base.BasePresenter;
 
 import java.io.IOException;
@@ -16,7 +15,6 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.functions.Func1;
 import timber.log.Timber;
 
@@ -91,7 +89,7 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
 
             @Override
             public void onNext(CustomerVO customerVO) {
-                Timber.d("Next: " + customerVO.getFirstName());
+                Timber.d("Next: %s", customerVO.getFirstName());
                 mCustomers.add(customerVO);
             }
         };
