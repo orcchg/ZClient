@@ -2,6 +2,7 @@ package com.orcchg.zclient.ui.customer;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.orcchg.zclient.ZClientApplication;
 import com.orcchg.zclient.data.DataManager;
@@ -18,6 +19,7 @@ import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
@@ -28,8 +30,8 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
     private final CustomerListAdapter mCustomerAdapter;
 
     private boolean mUseMockProvider = false;
-    private boolean mUseRestProvider = false;
-    private boolean mUseDirectProvider = true;
+    private boolean mUseRestProvider = true;
+    private boolean mUseDirectProvider = false;
 
     CustomerListPresenter() {
         mCustomers = new ArrayList<>();
@@ -67,20 +69,22 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
         // --------------------------------------
         if (mUseRestProvider) {
             mDataManager.getCustomers(20, 5)
-//        MockProvider.createCustomersObservable()
-                    .flatMap(new Func1<List<Customer>, Observable<Customer>>() {
-                        @Override
-                        public Observable<Customer> call(List<Customer> customers) {
-                            return Observable.from(customers);
-                        }
-                    })
-                    .map(new Func1<Customer, CustomerVO>() {
-                        @Override
-                        public CustomerVO call(Customer customer) {
-                            CustomerVO viewObject = mapper.map(customer);
-                            return viewObject;
-                        }
-                    }).subscribe(createObserver());
+//            MockProvider.createCustomersObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(new Func1<List<Customer>, Observable<Customer>>() {
+                    @Override
+                    public Observable<Customer> call(List<Customer> customers) {
+                        return Observable.from(customers);
+                    }
+                })
+                .map(new Func1<Customer, CustomerVO>() {
+                    @Override
+                    public CustomerVO call(Customer customer) {
+                        CustomerVO viewObject = mapper.map(customer);
+                        return viewObject;
+                    }
+                }).subscribe(createObserver());
         }
 
         /* Direct connection */
@@ -102,6 +106,7 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
 
             @Override
             public void onError(Throwable e) {
+                Timber.e("Error: %s", Log.getStackTraceString(e));
                 getMvpView().showError();
             }
 
@@ -120,21 +125,21 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
                 final CustomerMapperVO mapper = new CustomerMapperVO();
 
                 mDataManager.getDirectClient().getCustomers()
-//                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .flatMap(new Func1<List<Customer>, Observable<Customer>>() {
-                            @Override
-                            public Observable<Customer> call(List<Customer> customers) {
-                                return Observable.from(customers);
-                            }
-                        })
-                        .map(new Func1<Customer, CustomerVO>() {
-                            @Override
-                            public CustomerVO call(Customer customer) {
-                                CustomerVO viewObject = mapper.map(customer);
-                                return viewObject;
-                            }
-                        }).subscribe(createObserver());
+//                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .flatMap(new Func1<List<Customer>, Observable<Customer>>() {
+                        @Override
+                        public Observable<Customer> call(List<Customer> customers) {
+                            return Observable.from(customers);
+                        }
+                    })
+                    .map(new Func1<Customer, CustomerVO>() {
+                        @Override
+                        public CustomerVO call(Customer customer) {
+                            CustomerVO viewObject = mapper.map(customer);
+                            return viewObject;
+                        }
+                    }).subscribe(createObserver());
             } catch (IOException e) {
                 Timber.e(e.getMessage());
             }
