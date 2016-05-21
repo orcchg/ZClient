@@ -6,13 +6,18 @@ import android.os.AsyncTask;
 import com.orcchg.zclient.ZClientApplication;
 import com.orcchg.zclient.data.DataManager;
 import com.orcchg.zclient.data.mapper.CustomerMapperVO;
+import com.orcchg.zclient.data.model.Customer;
+import com.orcchg.zclient.mock.MockProvider;
 import com.orcchg.zclient.ui.base.BasePresenter;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
 import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import timber.log.Timber;
 
 public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
@@ -21,6 +26,10 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
 
     private final List<CustomerVO> mCustomers;
     private final CustomerListAdapter mCustomerAdapter;
+
+    private boolean mUseMockProvider = false;
+    private boolean mUseRestProvider = false;
+    private boolean mUseDirectProvider = true;
 
     CustomerListPresenter() {
         mCustomers = new ArrayList<>();
@@ -42,31 +51,43 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
         getMvpView().showLoading();
         final CustomerMapperVO mapper = new CustomerMapperVO();
 
-//        Observable.from(MockProvider.createCustomers()).flatMap(new Func1<Customer, Observable<CustomerVO>>() {
-//            @Override
-//            public Observable<CustomerVO> call(Customer customer) {
-//                CustomerVO viewObject = mapper.map(customer);
-//                return Observable.just(viewObject);
-//            }
-//        }).subscribe(createObserver());
+        /* Mock data provider */
+        // --------------------------------------
+        if (mUseMockProvider) {
+            Observable.from(MockProvider.createCustomers()).flatMap(new Func1<Customer, Observable<CustomerVO>>() {
+                @Override
+                public Observable<CustomerVO> call(Customer customer) {
+                    CustomerVO viewObject = mapper.map(customer);
+                    return Observable.just(viewObject);
+                }
+            }).subscribe(createObserver());
+        }
 
-//        mDataManager.getCustomers(20, 5)
-////        MockProvider.createCustomersObservable()
-//                .flatMap(new Func1<List<Customer>, Observable<Customer>>() {
-//                    @Override
-//                    public Observable<Customer> call(List<Customer> customers) {
-//                        return Observable.from(customers);
-//                    }
-//                })
-//                .map(new Func1<Customer, CustomerVO>() {
-//                    @Override
-//                    public CustomerVO call(Customer customer) {
-//                        CustomerVO viewObject = mapper.map(customer);
-//                        return viewObject;
-//                    }
-//                }).subscribe(createObserver());
+        /* Retrofit adapter */
+        // --------------------------------------
+        if (mUseRestProvider) {
+            mDataManager.getCustomers(20, 5)
+//        MockProvider.createCustomersObservable()
+                    .flatMap(new Func1<List<Customer>, Observable<Customer>>() {
+                        @Override
+                        public Observable<Customer> call(List<Customer> customers) {
+                            return Observable.from(customers);
+                        }
+                    })
+                    .map(new Func1<Customer, CustomerVO>() {
+                        @Override
+                        public CustomerVO call(Customer customer) {
+                            CustomerVO viewObject = mapper.map(customer);
+                            return viewObject;
+                        }
+                    }).subscribe(createObserver());
+        }
 
-        new DirectConnectionTask().execute();
+        /* Direct connection */
+        // --------------------------------------
+        if (mUseDirectProvider) {
+            new DirectConnectionTask().execute();
+        }
     }
 
     private Observer<CustomerVO> createObserver() {
@@ -96,7 +117,24 @@ public class CustomerListPresenter extends BasePresenter<CustomerListMvpView> {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                mDataManager.getDirectClient().connect();
+                final CustomerMapperVO mapper = new CustomerMapperVO();
+
+                mDataManager.getDirectClient().getCustomers()
+//                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .flatMap(new Func1<List<Customer>, Observable<Customer>>() {
+                            @Override
+                            public Observable<Customer> call(List<Customer> customers) {
+                                return Observable.from(customers);
+                            }
+                        })
+                        .map(new Func1<Customer, CustomerVO>() {
+                            @Override
+                            public CustomerVO call(Customer customer) {
+                                CustomerVO viewObject = mapper.map(customer);
+                                return viewObject;
+                            }
+                        }).subscribe(createObserver());
             } catch (IOException e) {
                 Timber.e(e.getMessage());
             }
